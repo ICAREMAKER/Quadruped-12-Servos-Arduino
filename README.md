@@ -3,25 +3,168 @@
 ![PCA9685](https://github.com/user-attachments/assets/1c1ff992-436c-489c-8b16-f4a543172447)
 
 ## Pattern
-![2](https://github.com/ICAREMAKER/Arduino---Fonts/assets/107696317/294aeadf-ec10-41d8-8bdc-544a334ee61b)
+### STARTER()
 
 ```C
-void DEUX()
-{
-  byte image2[] =
-{
-   B00000000,   
-   B10000010,
-   B11000011,
-   B11110001,
-   B10111001,
-   B10011111,
-   B10001110,
-   B00000000
-};
-  for (int i = 0; i < 8; i++)
-  {
-    lc.setRow(0,i,image2[i]);
+void STARTER() {
+	// pwm.writeMicroseconds(#Pin,(Angle en microseconde + Correction)
+  pwm.writeMicroseconds(0,(1500+100));   // Doigt AVG
+  delay(100);
+  pwm.writeMicroseconds(1,(1500+100));   // Bras AVG
+  delay(100);
+  pwm.writeMicroseconds(2,(1500+100));   // Epaule AVG
+  delay(100);
+  pwm.writeMicroseconds(4,(1500+100));   // Doigt AVD
+  delay(100);
+  pwm.writeMicroseconds(6,(1500+0));     // Bras AVD
+  delay(100);
+  pwm.writeMicroseconds(5,(1500+100));   // Epaule AVD
+  delay(100);
+  pwm.writeMicroseconds(8,(1500+100));   // Doigt ARD
+  delay(100);
+  pwm.writeMicroseconds(9,(1500+100));   // Bras ARD
+  delay(100);
+  pwm.writeMicroseconds(10,(1500+100));  // Epaule ARD
+  delay(100);
+  pwm.writeMicroseconds(12,(1500+100));  // Doigt ARG
+  delay(100);
+  pwm.writeMicroseconds(13,(1500+50));   // Bras ARG
+  delay(100);
+  pwm.writeMicroseconds(14,(1500+50));   // Epaule ARG
+  delay(100);
   }
-}
+```
+
+### DEBOUT()
+```C
+ void DEBOUT() {
+	// pwm.writeMicroseconds(#Pin,(Angle en microseconde + Correction)
+  pwm.writeMicroseconds(0,(2000+100));  // Doigt AVG
+  delay(100);
+  pwm.writeMicroseconds(1,(2000+100));  // Bras AVG
+  delay(100);
+  pwm.writeMicroseconds(2,(1500+100));  // Epaule AVG
+  delay(100);
+  pwm.writeMicroseconds(4,(1000+100));  // Doigt AVD
+  delay(100);
+  pwm.writeMicroseconds(6,(1000+0));    // Bras AVD
+  delay(100);
+  pwm.writeMicroseconds(5,(1500+100));  // Epaule AVD
+  delay(100);
+  pwm.writeMicroseconds(8,(2000+100));  // Doigt ARD
+  delay(100);
+  pwm.writeMicroseconds(9,(2000+100));  // Bras ARD
+  delay(100);
+  pwm.writeMicroseconds(10,(1500+100)); // Epaule ARD
+  delay(100);
+  pwm.writeMicroseconds(12,(1000+100)); // Doigt ARG
+  delay(100);
+  pwm.writeMicroseconds(13,(1000+50));  // Bras ARG
+  delay(100);
+  pwm.writeMicroseconds(14,(1500+50));  // Epaule ARG
+  delay(100);
+  }
+```
+### ANIMATION1()
+```C
+ void ANIMATION1() {
+	 /* J'anime comme une partition musicale 
+	 500  => 0°
+	 1000 => 45°
+	 1500 => 90°
+	 2000 => 135°
+	 2500 => 180°
+	 Rotation => Sens anti-horaire
+	 */
+	 
+	 // Patte avant gauche
+int Pos1[8] = {1500, 1500, 1500, 1500, 2000, 2000, 2000, 2000};  // Doigt AVG
+int Pos2[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Bras AVG
+int Pos3[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Epaule AVG
+    // Patte avant droite
+int Pos4[8] = {1500, 1500, 1500, 1500, 1000, 1000, 1000, 1000};  // Doigt AVD
+int Pos5[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Bras AVD
+int Pos6[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Epaule AVD
+    // Patte arriere droite
+int Pos7[8] = {1500, 1500, 1500, 1500, 2000, 2000, 2000, 2000};  // Doigt ARD
+int Pos8[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Bras ARD
+int Pos9[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Epaule ARD
+    // Patte arriere gauche
+int Pos10[8] = {1500, 1500, 1500, 1500, 1000, 1000, 1000, 1000}; // Doigt ARG
+int Pos11[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500}; // Bras ARG
+int Pos12[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500}; // Epaule ARG
+
+
+for (int s = 0; s < 8; s++) {
+	// pwm.writeMicroseconds(#Pin,(Angle en microseconde + Correction)
+  pwm.writeMicroseconds(0,(Pos1[s]+100));   // Doigt AVG
+  pwm.writeMicroseconds(4,(Pos4[s]+100));   // Doigt AVD
+  pwm.writeMicroseconds(8,(Pos7[s]+100));   // Doigt ARD
+  pwm.writeMicroseconds(12,(Pos10[s]+100)); // Doigt ARG
+  
+  pwm.writeMicroseconds(1,(Pos2[s]+100));   // Bras AVG
+  pwm.writeMicroseconds(6,(Pos5[s]+0));     // Bras AVD
+  pwm.writeMicroseconds(9,(Pos8[s]+100));   // Bras ARD
+  pwm.writeMicroseconds(13,(Pos11[s]+50));  // Bras ARG
+
+  pwm.writeMicroseconds(2,(Pos3[s]+100));   // Epaule AVG
+  pwm.writeMicroseconds(5,(Pos6[s]+100));   // Epaule AVD
+  pwm.writeMicroseconds(10,(Pos9[s]+100));  // Epaule ARD
+  pwm.writeMicroseconds(14,(Pos12[s]+50));  // Epaule ARG
+  
+  delay(200);
+  }
+ }
+```
+### COUCOU()
+```C
+ void COUCOU()
+ {
+	 /* J'anime comme une partition musicale 
+	 500  => 0°
+	 1000 => 45°
+	 1500 => 90°
+	 2000 => 135°
+	 2500 => 180°
+	 Rotation => Sens anti-horaire
+	 */
+	 
+ // Patte avant gauche
+int Pos1[8] = {2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000};  // Doigt AVG
+int Pos2[8] = {2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000};  // Bras AVG
+int Pos3[8] = {1500, 1500, 2000, 1000, 2000, 1000, 1500, 1500};  // Epaule AVG
+    // Patte avant droite
+int Pos4[8] = {1000, 2000, 2000, 2000, 2000, 2000, 2000, 1000};  // Doigt AVD
+int Pos5[8] = {1000, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Bras AVD
+int Pos6[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Epaule AVD
+	// Patte arriere droite
+int Pos7[8] = {2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000};  // Doigt ARD
+int Pos8[8] = {2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000};  // Bras ARD
+int Pos9[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500};  // Epaule ARD
+    // Patte arriere gauche
+int Pos10[8] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}; // Doigt ARG
+int Pos11[8] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}; // Bras ARG
+int Pos12[8] = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500}; // Epaule ARG
+
+
+for (int s = 0; s < 8; s++) {
+	// pwm.writeMicroseconds(#Pin,(Angle en microseconde + Correction)
+  pwm.writeMicroseconds(0,(Pos1[s]+100));   // Doigt AVG
+  pwm.writeMicroseconds(4,(Pos4[s]+100));   // Doigt AVD
+  pwm.writeMicroseconds(8,(Pos7[s]+100));   // Doigt ARD
+  pwm.writeMicroseconds(12,(Pos10[s]+100)); // Doigt ARG
+  
+  pwm.writeMicroseconds(1,(Pos2[s]+100));   // Bras AVG
+  pwm.writeMicroseconds(6,(Pos5[s]+0));     // Bras AVD
+  pwm.writeMicroseconds(9,(Pos8[s]+100));   // Bras ARD
+  pwm.writeMicroseconds(13,(Pos11[s]+50));  // Bras ARG
+
+  pwm.writeMicroseconds(2,(Pos3[s]+100));   // Epaule AVG
+  pwm.writeMicroseconds(5,(Pos6[s]+100));   // Epaule AVD
+  pwm.writeMicroseconds(10,(Pos9[s]+100));  // Epaule ARD
+  pwm.writeMicroseconds(14,(Pos12[s]+50));  // Epaule ARG
+  
+  delay(250);
+  }
+ }
 ```
